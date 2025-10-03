@@ -8,7 +8,6 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { useToast } from "@/components/ui/use-toast";
 
 import { addProductFormElements } from "@/config";
 import { useAppDispatch } from "@/hooks/redux";
@@ -21,6 +20,7 @@ import {
 import type { Product, ProductFormData, RootState } from "@/types";
 import { Fragment, useEffect, useState, type FormEvent } from "react";
 import { useSelector } from "react-redux";
+import { toast } from "sonner";
 
 const initialFormData: ProductFormData = {
   image: null,
@@ -47,7 +47,6 @@ function AdminProducts() {
     (state: RootState) => state.adminProducts
   );
   const dispatch = useAppDispatch();
-  const { toast } = useToast();
 
   function onSubmit(event: FormEvent<Element>) {
     event.preventDefault();
@@ -79,9 +78,7 @@ function AdminProducts() {
             setOpenCreateProductsDialog(false);
             setImageFile(null);
             setFormData(initialFormData);
-            toast({
-              title: "Product add successfully",
-            });
+            toast.success("Product add successfully");
           }
         });
   }

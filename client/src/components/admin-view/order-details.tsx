@@ -11,8 +11,9 @@ import {
   updateOrderStatus,
 } from "@/store/admin/order-slice";
 import CommonForm from "../common/form";
-import { useToast } from "../ui/use-toast";
+
 import { useAppDispatch } from "@/hooks/redux";
+import { toast } from "sonner";
 
 interface OrderItem {
   title: string;
@@ -39,10 +40,6 @@ interface RootState {
   };
 }
 
-interface FormData {
-  status: string;
-}
-
 interface AdminOrderDetailsViewProps {
   orderDetails: OrderDetails;
 }
@@ -55,7 +52,6 @@ function AdminOrderDetailsView({ orderDetails }: AdminOrderDetailsViewProps) {
   const [formData, setFormData] = useState(initialFormData);
   const { user } = useSelector((state: RootState) => state.auth);
   const dispatch = useAppDispatch();
-  const { toast } = useToast();
 
   console.log(orderDetails, "orderDetailsorderDetails");
 
@@ -70,9 +66,7 @@ function AdminOrderDetailsView({ orderDetails }: AdminOrderDetailsViewProps) {
         dispatch(getOrderDetailsForAdmin(orderDetails?._id) as any);
         dispatch(getAllOrdersForAdmin() as any);
         setFormData(initialFormData);
-        toast({
-          title: data?.payload?.message,
-        });
+        toast.success(data?.payload?.message);
       }
     });
   }

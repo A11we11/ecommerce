@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import {
   fetchAllFilteredProducts,
   fetchProductDetails,
@@ -25,11 +25,12 @@ import {
 import ShoppingProductTile from "@/components/shopping-view/product-tile";
 import { useNavigate } from "react-router-dom";
 import { addToCart, fetchCartItems } from "@/store/shop/cart-slice";
-import { useToast } from "@/components/ui/use-toast";
+
 import ProductDetailsDialog from "@/components/shopping-view/product-details";
 import { getFeatureImages } from "@/store/common-slice";
 import type { RootState } from "@/types";
 import { useAppDispatch } from "@/hooks/redux";
+import { toast } from "sonner";
 
 const categoriesWithIcon = [
   { id: "men", label: "Men", icon: ShirtIcon },
@@ -62,7 +63,6 @@ function ShoppingHome() {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { toast } = useToast();
 
   function handleNavigateToListingPage(
     getCurrentItem: { id: string },
@@ -93,9 +93,7 @@ function ShoppingHome() {
         if (user?.id) {
           dispatch(fetchCartItems(user?.id));
         }
-        toast({
-          title: "Product is added to cart",
-        });
+        toast.success("Product is added to cart");
       }
     });
   }
@@ -137,7 +135,7 @@ function ShoppingHome() {
                 key={index}
                 className={`${
                   index === currentSlide ? "opacity-100" : "opacity-0"
-                } absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000`}
+                } absolute top-0 left-0 w-full h-full object-cover  transition-opacity duration-1000`}
               />
             ))
           : null}

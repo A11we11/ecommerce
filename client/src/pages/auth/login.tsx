@@ -1,10 +1,10 @@
 import CommonForm from "@/components/common/form";
-import { useToast } from "@/components/ui/use-toast";
 import { loginFormControls } from "@/config";
 import { useAppDispatch } from "@/hooks/redux";
 import { loginUser } from "@/store/auth-slice";
 import { useState, type FormEvent } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 
 const initialState = {
   email: "",
@@ -14,21 +14,15 @@ const initialState = {
 function AuthLogin() {
   const [formData, setFormData] = useState(initialState);
   const dispatch = useAppDispatch();
-  const { toast } = useToast();
 
   function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     dispatch(loginUser(formData)).then((data: any) => {
       if (data?.payload?.success) {
-        toast({
-          title: data?.payload?.message,
-        });
+        toast.success(data?.payload?.message);
       } else {
-        toast({
-          title: data?.payload?.message,
-          variant: "destructive",
-        });
+        toast.error(data?.payload?.message);
       }
     });
   }

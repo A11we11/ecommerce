@@ -370,7 +370,8 @@ export interface AddressCardProps {
   handleDeleteAddress?: (address: Address) => void;
   handleEditAddress?: (address: Address) => void;
   setCurrentSelectedAddress?: (address: Address | null) => void;
-  selectedId?: string | null | currentSelectedProps;
+  selectedId?: currentSelectedProps | null;
+  /*  selectedId?: string | null | currentSelectedProps; */
 }
 
 export interface AddressProps {

@@ -10,7 +10,6 @@ import {
   fetchAllAddresses,
 } from "@/store/shop/address-slice";
 import AddressCard from "./address-card";
-import { useToast } from "../ui/use-toast";
 
 import type {
   Address,
@@ -19,6 +18,7 @@ import type {
   RootState,
 } from "@/types";
 import { useAppDispatch } from "@/hooks/redux";
+import { toast } from "sonner";
 
 const initialAddressFormData: AddressFormData = {
   address: "",
@@ -39,17 +39,13 @@ function AddressView({
   const dispatch = useAppDispatch();
   const { user } = useSelector((state: RootState) => state.auth);
   const { addressList } = useSelector((state: RootState) => state.shopAddress);
-  const { toast } = useToast();
 
   function handleManageAddress(event: FormEvent) {
     event.preventDefault();
 
     if (addressList.length >= 3 && currentEditedId === null) {
       setFormData(initialAddressFormData);
-      toast({
-        title: "You can add max 3 addresses",
-        variant: "destructive",
-      });
+      toast.error("You can add max 3 addresses");
 
       return;
     }
@@ -103,9 +99,7 @@ function AddressView({
           }
           setCurrentEditedId(null);
           setFormData(initialAddressFormData);
-          toast({
-            title: "Address updated successfully",
-          });
+          toast.success("Address updated successfully");
         } else {
           console.warn("❌ editaAddress failed:", data?.payload);
         }
@@ -122,9 +116,7 @@ function AddressView({
             dispatch(fetchAllAddresses(user.id));
           }
           setFormData(initialAddressFormData);
-          toast({
-            title: "Address added successfully",
-          });
+          toast.success("Address added successfully");
         } else {
           console.warn("❌ addNewAddress failed:", data?.payload);
         }
@@ -161,9 +153,7 @@ function AddressView({
         if (user?.id) {
           dispatch(fetchAllAddresses(user.id));
         }
-        toast({
-          title: "Address deleted successfully",
-        });
+        toast.success("Address deleted successfully");
       } else {
         console.warn("❌ deleteAddress failed:", data?.payload);
       }

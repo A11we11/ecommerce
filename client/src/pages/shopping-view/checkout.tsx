@@ -3,12 +3,12 @@ import img from "../../assets/account.jpg";
 import { useSelector } from "react-redux";
 import UserCartItemsContent from "@/components/shopping-view/cart-items-content";
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { createNewOrder } from "@/store/shop/order-slice";
-import { useToast } from "@/components/ui/use-toast";
+
 import type { currentSelectedProps, RootState } from "@/types";
 import { useAppDispatch } from "@/hooks/redux";
-import { fetchCartItems } from "@/store/shop/cart-slice";
+import { toast } from "sonner";
 
 function ShoppingCheckout() {
   const { cartItems } = useSelector((state: RootState) => state.shopCart);
@@ -18,16 +18,7 @@ function ShoppingCheckout() {
     useState<currentSelectedProps | null>(null);
   const [isPaymentStart, setIsPaymentStart] = useState(false);
   const dispatch = useAppDispatch();
-  const { toast } = useToast();
-
-  console.log(currentSelectedAddress, "currentSelectedAddress");
-  console.log(cartItems, "cartItems"); // Add this if you want to log cart items
-
-  useEffect(() => {
-    if (user?.id) {
-      dispatch(fetchCartItems(user.id));
-    }
-  }, [dispatch, user?.id]);
+  /*  const { toast } = useToast(); */
 
   const totalCartAmount =
     cartItems && cartItems.items && cartItems.items.length > 0
@@ -54,29 +45,15 @@ function ShoppingCheckout() {
       : 0; */
 
   function handleInitiatePaypalPayment() {
-    console.log("🚀 Starting payment process...");
-
     if (!cartItems.items || cartItems.items.length === 0) {
-      console.log("❌ Cart is empty");
-      toast({
-        title: "Your cart is empty. Please add items to proceed",
-        variant: "destructive",
-      });
+      toast.error("Please add items to your cart before checkout");
       return;
     }
 
     if (currentSelectedAddress === null) {
-      console.log("❌ No address selected");
-      toast({
-        title: "Please select one address to proceed.",
-        variant: "destructive",
-      });
+      toast.error("Please select a delivery address to proceed");
       return;
     }
-
-    console.log("✅ Validation passed");
-    console.log("📦 Cart items:", cartItems.items);
-    console.log("📍 Selected address:", currentSelectedAddress);
 
     const orderData = {
       userId: user?.id,
@@ -110,16 +87,11 @@ function ShoppingCheckout() {
       payerId: "",
     };
 
-    console.log("📤 Sending order data:", orderData);
-
     dispatch(createNewOrder(orderData)).then((data: any) => {
-      console.log("📥 Order creation response:", data);
       if (data?.payload?.success) {
-        console.log("✅ Order created successfully");
-        console.log("🔗 Approval URL:", data?.payload?.approvalURL);
         setIsPaymentStart(true);
       } else {
-        console.log("❌ Order creation failed:", data?.payload);
+        toast.error("Could not initiate PayPal payment. Please try again.");
         setIsPaymentStart(false);
       }
     });
