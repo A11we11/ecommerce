@@ -15,7 +15,7 @@ function AdminDashboard() {
     (state: RootState) => state.commonFeature
   );
 
-  console.log(uploadedImageUrl, "uploadedImageUrl");
+  // console.log(uploadedImageUrl, "uploadedImageUrl");
 
   function handleUploadFeatureImage() {
     dispatch(addFeatureImage(uploadedImageUrl)).then((data: any) => {
@@ -31,7 +31,7 @@ function AdminDashboard() {
     dispatch(getFeatureImages());
   }, [dispatch]);
 
-  console.log(featureImageList, "featureImageList");
+  // console.log(featureImageList, "featureImageList");
 
   return (
     <div>

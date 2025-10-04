@@ -33,7 +33,7 @@ function ProductDetailsDialog({
   const { reviews } = useSelector((state: RootState) => state.shopReview);
 
   function handleRatingChange(getRating: number) {
-    console.log(getRating, "getRating");
+    /* console.log(getRating, "getRating"); */
     setRating(getRating);
   }
 
@@ -105,7 +105,7 @@ function ProductDetailsDialog({
     }
   }, [productDetails, dispatch]);
 
-  console.log(reviews, "reviews");
+  // console.log(reviews, "reviews");
 
   const averageReview =
     reviews && reviews.length > 0

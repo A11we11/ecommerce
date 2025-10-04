@@ -19,7 +19,7 @@ function PaypalReturnPage() {
         const orderIdString = sessionStorage.getItem("currentOrderId");
         orderId = orderIdString ? JSON.parse(orderIdString) : null;
       } catch (error) {
-        console.error("Error parsing orderId from sessionStorage:", error);
+        // console.error("Error parsing orderId from sessionStorage:", error);
         orderId = null;
       }
       dispatch(capturePayment({ paymentId, payerId, orderId })).then(

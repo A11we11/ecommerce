@@ -32,7 +32,7 @@ function UserCartItemsContent({ cartItem }: UserCartItemsContentProps) {
         );
         const getTotalStock = productList[getCurrentProductIndex].totalStock;
 
-        console.log(getCurrentProductIndex, getTotalStock, "getTotalStock");
+        /*  console.log(getCurrentProductIndex, getTotalStock, "getTotalStock"); */
 
         if (indexOfCurrentCartItem > -1) {
           const getQuantity = getCartItems[indexOfCurrentCartItem].quantity;

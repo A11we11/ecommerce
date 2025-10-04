@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "@/config/api";
 import type {
   AddAddressParams,
   AddressState,
@@ -69,7 +70,7 @@ export const addNewAddress = createAsyncThunk(
   "address/addNewAddress",
   async (payload: any, { rejectWithValue }) => {
     try {
-      console.log("📤 [Thunk:addNewAddress] Payload received:", payload);
+      // console.log("📤 [Thunk:addNewAddress] Payload received:", payload);
 
       // Extract the nested formData and spread it with userId
       const requestBody = {
@@ -77,20 +78,20 @@ export const addNewAddress = createAsyncThunk(
         ...payload.formData, // Spread the formData properties
       };
 
-      console.log("📤 [Thunk:addNewAddress] Sending to backend:", requestBody);
+      // console.log("📤 [Thunk:addNewAddress] Sending to backend:", requestBody);
 
       const response = await axios.post(
-        "http://localhost:5000/api/shop/address/add", // ✅ Fixed URL
+        `${API_BASE_URL}/api/shop/address/add`, // ✅ Fixed URL
         requestBody // ✅ Flattened payload
       );
 
-      console.log("✅ [Thunk:addNewAddress] Backend response:", response.data);
+      // console.log("✅ [Thunk:addNewAddress] Backend response:", response.data);
       return response.data;
     } catch (error: any) {
-      console.error(
+      /*  console.error(
         "❌ [Thunk:addNewAddress] Error:",
         error.response?.data || error.message
-      );
+      ); */
       return rejectWithValue(error.response?.data || error.message);
     }
   }
@@ -100,7 +101,7 @@ export const fetchAllAddresses = createAsyncThunk(
   "/addresses/fetchAllAddresses",
   async (userId: string) => {
     const response = await axios.get(
-      `http://localhost:5000/api/shop/address/get/${userId}`
+      `${API_BASE_URL}/api/shop/address/get/${userId}`
     );
 
     return response.data;
@@ -111,7 +112,7 @@ export const editaAddress = createAsyncThunk(
   "/addresses/editaAddress",
   async ({ userId, addressId, formData }: EditAddressParams) => {
     const response = await axios.put(
-      `http://localhost:5000/api/shop/address/update/${userId}/${addressId}`,
+      `${API_BASE_URL}/api/shop/address/update/${userId}/${addressId}`,
       formData
     );
 
@@ -123,7 +124,7 @@ export const deleteAddress = createAsyncThunk(
   "/addresses/deleteAddress",
   async ({ userId, addressId }: DeleteAddressParams) => {
     const response = await axios.delete(
-      `http://localhost:5000/api/shop/address/delete/${userId}/${addressId}`
+      `${API_BASE_URL}/api/shop/address/delete/${userId}/${addressId}`
     );
 
     return response.data;

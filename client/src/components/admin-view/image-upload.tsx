@@ -28,12 +28,12 @@ function ProductImageUpload({
 }: ProductImageUploadProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  console.log(isEditMode, "isEditMode");
+  /*  console.log(isEditMode, "isEditMode"); */
 
   function handleImageFileChange(event: React.ChangeEvent<HTMLInputElement>) {
-    console.log(event.target.files, "event.target.files");
+    /* console.log(event.target.files, "event.target.files"); */
     const selectedFile = event.target.files?.[0];
-    console.log(selectedFile);
+    /* console.log(selectedFile); */
 
     if (selectedFile) setImageFile(selectedFile);
   }
@@ -67,7 +67,7 @@ function ProductImageUpload({
       "http://localhost:5000/api/admin/products/upload-image",
       data
     );
-    console.log(response, "response");
+    /* console.log(response, "response"); */
 
     if (response?.data?.success) {
       setUploadedImageUrl(response.data.result.url);

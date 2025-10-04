@@ -119,7 +119,7 @@ function ShoppingHome() {
     );
   }, [dispatch]);
 
-  console.log(productList, "productList");
+  // console.log(productList, "productList");
 
   useEffect(() => {
     dispatch(getFeatureImages());

@@ -86,7 +86,7 @@ function HeaderRightContent() {
 
   async function handleLogout() {
     try {
-      console.log("Attempting logout..."); // Debug log
+      /* console.log("Attempting logout...");      */ // Debug log
 
       // Dispatch logout action
       await dispatch(logoutUser()).unwrap();
@@ -95,7 +95,7 @@ function HeaderRightContent() {
       localStorage.removeItem("token");
       sessionStorage.clear();
 
-      console.log("Logout successful"); // Debug log
+      /*  console.log("Logout successful"); */ // Debug log
 
       // Navigate to login page
       navigate("/auth/login");
@@ -155,7 +155,7 @@ function HeaderRightContent() {
           <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={() => {
-              console.log("Account button clicked"); // Debug log
+              /* console.log("Account button clicked");          */ // Debug log
               navigate("/shop/account");
             }}
           >
@@ -165,7 +165,7 @@ function HeaderRightContent() {
           <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={() => {
-              console.log("Logout button clicked"); // Debug log
+              /* console.log("Logout button clicked");              */ // Debug log
               handleLogout();
             }}
           >
@@ -180,12 +180,12 @@ function HeaderRightContent() {
 
 // ---------------- ShoppingHeader ----------------
 function ShoppingHeader() {
-  const { user } = useSelector((state: RootState) => state.auth);
+  /*  const { user } = useSelector((state: RootState) => state.auth); */
 
   // Debug log to check if user exists
-  useEffect(() => {
+  /*  useEffect(() => {
     console.log("Current user in header:", user);
-  }, [user]);
+  }, [user]); */
 
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background">

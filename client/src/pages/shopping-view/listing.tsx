@@ -35,7 +35,7 @@ function createSearchParamsHelper(filterParams: FilterParams): string {
     }
   }
 
-  console.log(queryParams, "queryParams");
+  // console.log(queryParams, "queryParams");
   return queryParams.join("&");
 }
 
@@ -83,7 +83,7 @@ function ShoppingListing() {
   }
 
   function handleGetProductDetails(getCurrentProductId: string): void {
-    console.log(getCurrentProductId);
+    // console.log(getCurrentProductId);
     dispatch(fetchProductDetails(getCurrentProductId));
   }
 
@@ -91,7 +91,7 @@ function ShoppingListing() {
     getCurrentProductId: string,
     getTotalStock: number
   ): void {
-    console.log(cartItems);
+    // console.log(cartItems);
     let getCartItems = cartItems.items || [];
 
     if (getCartItems.length) {
@@ -135,7 +135,7 @@ function ShoppingListing() {
       const storedFilters = sessionStorage.getItem("filters");
       setFilters(storedFilters ? JSON.parse(storedFilters) : {});
     } catch (error) {
-      console.error("Error parsing filters from sessionStorage:", error);
+      // console.error("Error parsing filters from sessionStorage:", error);
       setFilters({});
     }
   }, [categorySearchParam]);
@@ -158,7 +158,7 @@ function ShoppingListing() {
     if (productDetails !== null) setOpenDetailsDialog(true);
   }, [productDetails]);
 
-  console.log(productList, "productListproductListproductList");
+  // console.log(productList, "productListproductListproductList");
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] gap-6 p-4 md:p-6">
